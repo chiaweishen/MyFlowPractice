@@ -20,41 +20,17 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class FlowFlatMapMergeTest {
     @Test
-    fun testFlatMapMergeDoubleEmit() = runTest {
-        (1..100).asFlow()
+    fun test() = runTest {
+        (1..3).asFlow()
             .flatMapMerge {
                 flow {
-                    emit("$it: a")
-                    emit("$it: b")
-                }
-            }
-            .flatMapMerge {
-                flow {
-                    emit("$it: c")
-                }
-            }
-            .collect {
-                println(it) // 1: a: c 1: b: c 2: a: c ... (random)
-            }
-    }
-
-    @Test
-    fun testFlatMapMergeDelay() = runTest {
-        (1..100).asFlow()
-            .flatMapMerge {
-                flow {
-                    emit("$it: a")
+                    emit("${it}a")
                     delay(100)
-                    emit("$it: b")
-                }
-            }
-            .flatMapMerge {
-                flow {
-                    emit("$it: c")
+                    emit("${it}b")
                 }
             }
             .collect {
-                println(it) // 1: a: c 2: a: c 3: a: c ... (random)
+                println(it) // 1a 2a 3a 1b 2b 3b
             }
     }
 }
