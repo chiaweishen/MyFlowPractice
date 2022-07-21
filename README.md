@@ -1,2 +1,2 @@
 # MyFlowPractice
-Test the flow operators
+Test kotlin flow operators
