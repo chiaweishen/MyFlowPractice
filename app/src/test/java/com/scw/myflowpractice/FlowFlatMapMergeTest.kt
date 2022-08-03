@@ -21,7 +21,7 @@ import org.junit.Test
 class FlowFlatMapMergeTest {
     @Test
     fun test() = runTest {
-        (1..3).asFlow()
+        (1..100).asFlow()
             .flatMapMerge {
                 flow {
                     emit("${it}a")
@@ -30,7 +30,7 @@ class FlowFlatMapMergeTest {
                 }
             }
             .collect {
-                println(it) // 1a 2a 3a 1b 2b 3b
+                println(it) // 同時執行會呈現不規則順序
             }
     }
 }

@@ -21,7 +21,7 @@ import org.junit.Test
 class FlowFlatMapConcatTest {
     @Test
     fun test() = runTest {
-        (1..3).asFlow()
+        (1..100).asFlow()
             .flatMapConcat {
                 flow {
                     emit("${it}a")
@@ -30,7 +30,7 @@ class FlowFlatMapConcatTest {
                 }
             }
             .collect {
-                println(it) // 1a 1b 2a 2b 3a 3b
+                println(it) // 1a 1b 2a 2b 3a 3b ... 100a 100b
             }
     }
 }

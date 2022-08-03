@@ -31,13 +31,12 @@ class FlowCombineTest {
 
     @Test
     fun testHotFlowCombine() = runTest {
-        val _flow = MutableSharedFlow<Int>(0, 0, BufferOverflow.SUSPEND)
-        val flow = _flow.asSharedFlow()
+        val flow = MutableSharedFlow<Int>(0, 0, BufferOverflow.SUSPEND)
 
         launch {
             (1..2).onEach {
                 delay(20)
-                _flow.emit(it)
+                flow.emit(it)
             }
         }
 
@@ -54,7 +53,7 @@ class FlowCombineTest {
         val job = launch {
             (1..2).onEach {
                 delay(20)
-                _flow.emit(it)
+                flow.emit(it)
             }
         }
         advanceUntilIdle()
